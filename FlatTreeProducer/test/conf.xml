@@ -954,6 +954,10 @@
     <var name="pfcand_id" save="1"></var>
     <var name="pfcand_dz" save="1"></var>
     <var name="pfcand_trackIso" save="1"></var>
+    <var name="pfch_loose_n" save="1"></var>
+    <var name="pfch_loose_sumpt" save="1"></var>
+    <var name="pfch_tight_n" save="1"></var>
+    <var name="pfch_tight_sumpt" save="1"></var>
     <var name="gen_PVz" save="0" mc="1"></var>
     <var name="gen_all" save="1" mc="1"></var>
     <var name="gen_stop" save="0" mc="1"></var>

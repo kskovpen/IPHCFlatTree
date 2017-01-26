@@ -1143,7 +1143,11 @@ void FlatTree::Init()
    pfcand_dz.clear();
    pfcand_trackIso.clear();
 
- 
+   pfch_loose_n = 0;
+   pfch_loose_sumpt = 0;
+   pfch_tight_n = 0;
+   pfch_tight_sumpt = 0;
+
    
    //------------------------
    //  GenInfo stop
@@ -2274,6 +2278,12 @@ void FlatTree::CreateBranches(int buffersize = 32000)
    if( doWrite("pfcand_id") ) tree->Branch("pfcand_id", "std::vector<int>", &pfcand_id, buffersize);
    if( doWrite("pfcand_dz") ) tree->Branch("pfcand_dz", "std::vector<float>", &pfcand_dz, buffersize);
    if( doWrite("pfcand_trackIso") ) tree->Branch("pfcand_trackIso", "std::vector<float>", &pfcand_trackIso, buffersize);
+   
+   if( doWrite("pfch_loose_n") ) tree->Branch("pfch_loose_n",  &pfch_loose_n, "pfch_loose_n/I",buffersize);
+   if( doWrite("pfch_loose_sumpt") ) tree->Branch("pfch_loose_sumpt",  &pfch_loose_sumpt, "pfch_loose_sumpt/F",buffersize);
+   if( doWrite("pfch_tight_n") ) tree->Branch("pfch_tight_n",  &pfch_tight_n, "pfch_tight_n/I",buffersize);
+   if( doWrite("pfch_tight_sumpt") ) tree->Branch("pfch_tight_sumpt",  &pfch_tight_sumpt, "pfch_tight_sumpt/F",buffersize);
+   
 
    if( doWrite("mc_truth_tth") )
      {

@@ -3489,8 +3489,30 @@ void FlatTreeProducer::analyze(const edm::Event& iEvent, const edm::EventSetup& 
     int nPfcand = pfcands->size();
     ftree->pfcand_n = nPfcand;
     bool do_sel_pfc = ftree->doWrite("sel_pfcand");
+    
+    
+    ftree->pfch_loose_n = 0;
+    ftree->pfch_loose_sumpt = 0;
+    ftree->pfch_tight_n = 0;
+    ftree->pfch_tight_sumpt = 0;
+
     for( const pat::PackedCandidate &pfc : *pfcands )
     {
+        
+	//make a selection based on TOP-15-017
+	if(pfc.charge()!=0 && pfc.pt()>0.5 && fabs(pfc.eta())<2.1){
+	  if(fabs(pfc.dz())<1 && fabs(pfc.dz()/pfc.dzError())<10 && fabs(pfc.dxy())<3 && fabs(pfc.dxy()/pfc.dxyError())<10){
+	 	ftree->pfch_loose_n++;
+	  	ftree->pfch_loose_sumpt+=pfc.pt();
+	  }
+	  if(fabs(pfc.dz())<0.1 && fabs(pfc.dz()/pfc.dzError())<5 && fabs(pfc.dxy())<0.5 && fabs(pfc.dxy()/pfc.dxyError())<5){
+	 	ftree->pfch_tight_n++;
+	  	ftree->pfch_tight_sumpt+=pfc.pt();
+	  }
+	}
+
+
+
         //compute track Iso
         double trackIso = 0;
         // run over all pf candidates
@@ -3585,7 +3607,7 @@ void FlatTreeProducer::beginRun(const edm::Run& iRun, const edm::EventSetup& iSe
     jecUnc = new JetCorrectionUncertainty(JetCorPar);*/
 
     const char* cmssw_base = std::getenv("CMSSW_BASE");
-    std::string JECUncertaintyPath = std::string(cmssw_base)+"/src/IPHCFlatTree/FlatTreeProducer/data/jecFiles/Fall15_25nsV2_MC/Fall15_25nsV2_MC_Uncertainty_AK4PFchs.txt";
+    std::string JECUncertaintyPath = std::string(cmssw_base)+"/src/IPHCFlatTree/FlatTreeProducer/data/jecFiles/Spring16_25nsV10_MC/Spring16_25nsV10_MC_Uncertainty_AK4PFchs.txt";
     jecUnc = new JetCorrectionUncertainty(JECUncertaintyPath.c_str());
 }
 

@@ -1182,7 +1182,14 @@ class FlatTree
    std::vector<int> pfcand_id;
    std::vector<float> pfcand_dz;
    std::vector<float> pfcand_trackIso;
-   
+  
+   // Global charged activity
+   int pfch_loose_n;
+   float pfch_loose_sumpt;
+   int pfch_tight_n;
+   float pfch_tight_sumpt;
+
+
    // ttH
    int mc_truth_tth_channel;
 
